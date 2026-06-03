@@ -23,7 +23,7 @@ Cloud To-Do List helps users organize their daily activities efficiently. By lev
 
 📸 Project Screenshot
 
-"Cloud To-Do List" (screenshots/todo-app.png)
+"Cloud To-Do List" (IMG-20260405-WA0004.jpg)
 
 📂 Project Structure
 
@@ -32,7 +32,7 @@ cloud-todo-list/
 ├── index.html
 ├── README.md
 └── screenshots/
-    └── todo-app.png
+    └── IMG-20260405-WA0004.jpg
 
 🔮 Future Enhancements
 
