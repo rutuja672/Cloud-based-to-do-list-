@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cloud To-Do List</title>
+</head>
+<body>
+
+<h2>☁️ To-Do List</h2>
+
+<input type="text" id="taskInput" placeholder="Enter task">
+<button onclick="addTask()">Add</button>
+
+<ul id="taskList"></ul>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    databaseURL: "YOUR_DB_URL",
+    projectId: "YOUR_PROJECT_ID",
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database().ref("tasks");
+
+  function addTask() {
+    const input = document.getElementById("taskInput");
+    const task = input.value;
+
+    if (task === "") return;
+
+    db.push(task);
+    input.value = "";
+  }
+
+  function loadTasks() {
+    db.on("value", (snapshot) => {
+      const list = document.getElementById("taskList");
+      list.innerHTML = "";
+
+      snapshot.forEach((child) => {
+        const li = document.createElement("li");
+        li.innerText = child.val();
+
+        const btn = document.createElement("button");
+        btn.innerText = "Delete";
+        btn.onclick = () => db.child(child.key).remove();
+
+        li.appendChild(btn);
+        list.appendChild(li);
+      });
+    });
+  }
+
+  loadTasks();
+</script>
+
+</body>
+</html>
